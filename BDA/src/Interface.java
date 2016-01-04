@@ -21,11 +21,14 @@ public class Interface  extends JFrame implements ActionListener {
 	JButton btnRecupNbEtuAStage = new JButton("Nombre d'étudiant(s) avec stage ");
 	JButton btnRecupNbEtuSStage = new JButton("Nombre d'étudiant(s) sans stage ");
 	JButton btnRecupNbEtuSStageDate = new JButton("Nombre d'étudiant(s) sans stage à une date");
-	JButton btnNbStagiaireParEntrepriseAnnee = new JButton("Nombre de stagiaire(s) pris par chaque entreprise durant les N dernière année");
-	JButton btnNbStagiaireParEntrepriseAnneeMoy = new JButton("Moyenne du nombre de stagiaire(s) pris par chaque entreprise durant les N dernière année");
+	JButton btnNbStagiaireParEntrepriseAnnee = new JButton("Nombre de stagiaire(s) pris par chaque entreprise durant les N dernières années");
+	JButton btnNbStagiaireParEntrepriseAnneeMoy = new JButton("Moyenne du nombre de stagiaire(s) pris par chaque entreprise durant les N dernières années");
 	JTextField txtRecherche = new JTextField();
-	JButton btnPagePartenaire = new JButton ("Afficher partenaires");
-	
+	JButton btnNbStageZoneGeoChoix = new JButton ("Nombre de stages par zone choisi");
+	JButton btnNbStageZoneGeo = new JButton ("Nombre de stages pour toute les zones");
+	JButton btnEntrepriseAStageAnnee = new JButton ("Les entreprises et leur contact ayant eu un stage dans les n dernières années");
+	JButton btnStats = new JButton ("Statistiques");
+	JButton btnRetour = new JButton ("Retour");
 	JButton btnConsulterInscrit = new JButton ("Consulter inscrit");
 	JButton btnSinscire = new JButton ("S'inscrire");
 	JButton btnPrecisionParcours = new JButton ("Afficher precision Parcours");
@@ -44,7 +47,7 @@ public Interface (String titre){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(600, 600);
 		this.setVisible(true);
-		panel.setLayout(new GridLayout(8, 2));
+		panel.setLayout(new GridLayout(9, 2));
 		menu();
 		
 	}
@@ -61,6 +64,14 @@ public Interface (String titre){
 		this.panel.add(btnNbStagiaireParEntrepriseAnnee);
 		btnNbStagiaireParEntrepriseAnneeMoy.addActionListener(this);
 		this.panel.add(btnNbStagiaireParEntrepriseAnneeMoy);
+		btnNbStageZoneGeo.addActionListener(this);
+		this.panel.add(btnNbStageZoneGeo);
+		btnNbStageZoneGeoChoix.addActionListener(this);
+		this.panel.add(btnNbStageZoneGeoChoix);
+		btnEntrepriseAStageAnnee.addActionListener(this);
+		this.panel.add(btnEntrepriseAStageAnnee);
+		btnStats.addActionListener(this);
+		this.panel.add(btnStats);
 		this.add(panel);
 	}
 	
@@ -69,6 +80,7 @@ public Interface (String titre){
 		panel.repaint();
 		panel.revalidate();
 	}
+
 	
 	public static void main(String[] args) {
 
@@ -76,7 +88,14 @@ public Interface (String titre){
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
+
+		 Object source = e.getSource();
+		 
+		if (source == btnRecupNbEtuAStage){
+			 nettoyer();
+			 
+		 }
 		
 	}
 
