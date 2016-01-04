@@ -177,7 +177,12 @@ public class Interface extends JFrame implements ActionListener
 				e1.printStackTrace();
 			}
 		}else if(source == btnRecupNbEtuSStage){
-			nettoyer();
+			try {
+				RecupEtuSansStage(co);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}else if(source == btnRecupNbEtuSStageDate){
 			recupererEtudiantSStage();
 		}else if(source == btnNbStageZoneGeo){
