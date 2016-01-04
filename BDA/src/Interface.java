@@ -147,11 +147,9 @@ public class Interface extends JFrame implements ActionListener
 		this.setSize(300, 300);
 		panel.setLayout(new GridLayout(2, 2));
 		// On appelle la fonction stockée
-		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage(?)}");
-		// On précise les paramètres
-		cst.setString(2, "2016");
+		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage()}");
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
-		  cst.execute();
+		cst.execute();
 		lblResult = new JLabel(Integer.toString(cst.getInt(1)));
 		this.panel.add(lblResult);
 		this.panel.add(btnRetour);
@@ -183,7 +181,6 @@ public class Interface extends JFrame implements ActionListener
 			{
 				e1.printStackTrace();
 			}
-<<<<<<< HEAD
 		}else if(source == btnRecupNbEtuSStage){
 			try {
 				RecupEtuSansStage(co);
@@ -192,7 +189,6 @@ public class Interface extends JFrame implements ActionListener
 				e1.printStackTrace();
 			}
 		}else if(source == btnRecupNbEtuSStageDate){
-=======
 		}
 		else if (source == btnRecupNbEtuSStage)
 		{
@@ -200,7 +196,6 @@ public class Interface extends JFrame implements ActionListener
 		}
 		else if (source == btnRecupNbEtuSStageDate)
 		{
->>>>>>> origin/master
 			recupererEtudiantSStage();
 		}
 		else if (source == btnNbStageZoneGeo)

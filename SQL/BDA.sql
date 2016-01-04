@@ -17,7 +17,7 @@ CREATE TABLE BDA_etudiant(
   prenom VARCHAR2(50) NOT NULL, 
   nom VARCHAR2(50) NOT NULL, 
   stageGot INTEGER NOT NULL, 
-  dateObsgetentionStage DATE);
+  dateObtentionStage DATE);
 -- CREATION DE L'OBJET ENTREPRISE
 CREATE TABLE BDA_entreprise(
   id_entreprise INTEGER NOT NULL PRIMARY KEY, 
@@ -91,14 +91,31 @@ BDA_adresse('rue des fromagers', 'Lorient', '35120'));
 -- ############################################################
 -- FONCTIONS PL/SQL
 -- ############################################################
-CREATE OR REPLACE FUNCTION nbEtudiantsAvecStage(anneeStage IN INTEGER) RETURN INTEGER IS
-  nbStageCetteAnnée INTEGER;
+-- QUESTION 1
+CREATE OR REPLACE FUNCTION nbEtudiantsAvecStage 
+RETURN INTEGER IS nbStageCetteAnnee INTEGER;
   BEGIN
-      SELECT COUNT(*) INTO nbStageCetteAnnée
-      FROM BDA_STAGE
-      WHERE TO_CHAR(dateDebut, 'YYYY') = anneeStage;
-        return nbStageCetteAnnée;
+    SELECT COUNT(*) INTO nbStageCetteAnnee
+    FROM BDA_ETUDIANT E
+    WHERE TO_CHAR(E.DATEOBTENTIONSTAGE, 'YYYY')=TO_CHAR(sysdate, 'YYYY');
+    RETURN nbStageCetteAnnee;
   END;
+-- QUESTION 2
+CREATE OR REPLACE FUNCTION nbEtudiantsSansStage 
+RETURN INTEGER IS nbNonStageCetteAnnee INTEGER;
+  BEGIN
+    SELECT COUNT(*) INTO nbNonStageCetteAnnee
+    FROM BDA_ETUDIANT E
+    WHERE E.DATEOBTENTIONSTAGE=NULL;
+    RETURN nbNonStageCetteAnnee;
+  END;
+
+
+
+
+
+
+
     
 CREATE OR REPLACE FUNCTION nbEtudiantsSansStage (anneeStage in INTEGER) RETURN INTEGER IS
   nbStageCetteAnnée INTEGER;
@@ -110,7 +127,6 @@ CREATE OR REPLACE FUNCTION nbEtudiantsSansStage (anneeStage in INTEGER) RETURN I
         AND  dateDebut IS NULL;
         return nbStageCetteAnnée;
   END;
-  /
     
 CREATE OR REPLACE FUNCTION nbEtudiantsSansStageAvecDate (anneeStage in INTEGER) RETURN INTEGER IS
   nbStageCetteAnnée INTEGER;
@@ -122,7 +138,6 @@ CREATE OR REPLACE FUNCTION nbEtudiantsSansStageAvecDate (anneeStage in INTEGER) 
 
         return nbStageCetteAnnée;
   END;
-  /
 
   
 
