@@ -132,9 +132,7 @@ public class Interface extends JFrame implements ActionListener
 		this.setSize(300, 300);
 		panel.setLayout(new GridLayout(2, 2));
 		// On appelle la fonction stockée
-		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsAvecStage(?)}");
-		// On précise les paramètres
-		cst.setString(2, "2016");
+		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsAvecStage()}");
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
 		cst.execute();
 		System.out.println(cst.getInt(1));
