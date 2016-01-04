@@ -167,7 +167,7 @@ public class Interface extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		// On se connecte à la base de données
-		String url = "jdbc:oracle:thin:" + "cfiloch" + "/" + "IUT#oracle2013"
+		String url = "jdbc:oracle:thin:" + id + "/" + mdp
 		                    + "@oracle.iut-orsay.fr:1521:etudom";
 		Connection co = OutilsJDBC.connexion(url);
 		Object source = e.getSource();
