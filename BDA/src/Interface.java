@@ -19,9 +19,9 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class Interface extends JFrame implements ActionListener
 {
-	public static String id="";
-	public static String mdp="";
-	
+	public static String id = "";
+	public static String mdp = "";
+
 	public JPanel panel = new JPanel();
 	public JLabel label = new JLabel("");
 
@@ -38,17 +38,16 @@ public class Interface extends JFrame implements ActionListener
 	                    "Les entreprises et leur contact ayant eu " + "un stage dans les n dernières années");
 	public JButton btnStats = new JButton("Statistiques");
 	public JButton btnRetour = new JButton("Retour");
-	
 
 	public JButton btnValider = new JButton("Valider");
-	
+
 	public JLabel lblDate = new JLabel("Date :");
 	public JTextField txtDate = new JTextField();
-	
+
 	public JLabel lblResult;
-	
+
 	public Interface(String titre)
-	{	
+	{
 		super(titre);
 		connexionID();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,7 +56,8 @@ public class Interface extends JFrame implements ActionListener
 		panel.setLayout(new GridLayout(9, 2));
 		menu();
 	}
-	public void connexionID(){
+	public void connexionID()
+	{
 		String[] options = {"OK"};
 		JPanel panel = new JPanel();
 		JPanel panel2 = new JPanel();
@@ -69,12 +69,14 @@ public class Interface extends JFrame implements ActionListener
 		panel.add(txt);
 		panel2.add(lbl2);
 		panel2.add(txt2);
-		int selectedOption = JOptionPane.showOptionDialog(null, panel, "Connexion à la BDD", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options , options[0]);
-		int selectedOption2 = JOptionPane.showOptionDialog(null, panel2, "Connexion à la BDD", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options , options[0]);
-		id=txt.getText();
-		mdp=txt2.getText();
+		int selectedOption = JOptionPane.showOptionDialog(null, panel, "Connexion à la BDD",
+		                    JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		int selectedOption2 = JOptionPane.showOptionDialog(null, panel2, "Connexion à la BDD",
+		                    JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		id = txt.getText();
+		mdp = txt2.getText();
 	}
-	
+
 	public void menu()
 	{
 		this.setTitle("Projet Base de Données Avancées");
@@ -107,8 +109,9 @@ public class Interface extends JFrame implements ActionListener
 		panel.repaint();
 		panel.revalidate();
 	}
-	
-	public void choixZoneGeo(){
+
+	public void choixZoneGeo()
+	{
 		nettoyer();
 		this.setTitle("Nombre de stages par zone géo choisi");
 		this.setSize(600, 300);
@@ -121,8 +124,9 @@ public class Interface extends JFrame implements ActionListener
 		btnRetour.addActionListener(this);
 		this.panel.add(btnRetour);
 	}
-	
-	public void RecupEtuAvecStage(Connection co) throws SQLException{
+
+	public void RecupEtuAvecStage(Connection co) throws SQLException
+	{
 		nettoyer();
 		this.setTitle("Nombre d'étudiant(s) avec stage");
 		this.setSize(300, 300);
@@ -132,31 +136,33 @@ public class Interface extends JFrame implements ActionListener
 		// On précise les paramètres
 		cst.setString(2, "2016");
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
+		cst.execute();
+		System.out.println(cst.getInt(1));
 		lblResult = new JLabel(Integer.toString(cst.getInt(1)));
 		this.panel.add(lblResult);
 		this.panel.add(btnRetour);
 	}
-	public void RecupEtuSansStage(Connection co) throws SQLException{
+	public void RecupEtuSansStage(Connection co) throws SQLException
+	{
 		nettoyer();
 		this.setTitle("Nombre d'étudiant(s) avec stage");
 		this.setSize(300, 300);
 		panel.setLayout(new GridLayout(2, 2));
-		  // On appelle la fonction stockée
-		  CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage(?)}");
-		  // On précise les paramètres
-		  cst.setString(2, "2016");
-		  cst.registerOutParameter(1, java.sql.Types.INTEGER);
-			lblResult = new JLabel(Integer.toString(cst.getInt(1)));
-			this.panel.add(lblResult);
-			this.panel.add(btnRetour);
-		}
-	
-	
-	public void recupererEtudiantSStage(){
+		// On appelle la fonction stockée
+		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage(?)}");
+		// On précise les paramètres
+		cst.setString(2, "2016");
+		cst.registerOutParameter(1, java.sql.Types.INTEGER);
+		lblResult = new JLabel(Integer.toString(cst.getInt(1)));
+		this.panel.add(lblResult);
+		this.panel.add(btnRetour);
+	}
+	public void recupererEtudiantSStage()
+	{
 		nettoyer();
 		this.setTitle("Nombre d'étudiant(s) sans stage à une date");
 		this.setSize(600, 300);
-		
+
 		btnRetour.addActionListener(this);
 		this.panel.add(btnRetour);
 	}
@@ -164,46 +170,67 @@ public class Interface extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		// On se connecte à la base de données
-		String url = "jdbc:oracle:thin:" + "mpheulp" + "/" + "plopplop" + "@oracle.iut-orsay.fr:1521:etudom";
+		String url = "jdbc:oracle:thin:" + "cfiloch" + "/" + "IUT#oracle2013"
+		                    + "@oracle.iut-orsay.fr:1521:etudom";
 		Connection co = OutilsJDBC.connexion(url);
-
 		Object source = e.getSource();
-
-		if (source == btnRecupNbEtuAStage){
-			try {
+		if (source == btnRecupNbEtuAStage)
+		{
+			try
+			{
 				RecupEtuAvecStage(co);
+			}
+			catch (SQLException e1)
+			{
+				e1.printStackTrace();
+			}
+		}
+		else if (source == btnRecupNbEtuSStage)
+		{
+			nettoyer();
+		}
+		else if (source == btnRecupNbEtuSStageDate)
+		{
+			recupererEtudiantSStage();
+		}
+		else if (source == btnNbStageZoneGeo)
+		{
+			nettoyer();
+		}
+		else if (source == btnNbStageZoneGeoChoix)
+		{
+			choixZoneGeo();
+		}
+		else if (source == btnNbStagiaireParEntrepriseAnnee)
+		{
+			nettoyer();
+		}
+		else if (source == btnNbStagiaireParEntrepriseAnneeMoy)
+		{
+			nettoyer();
+		}
+		else if (source == btnEntrepriseAStageAnnee)
+		{
+			nettoyer();
+		}
+		else if (source == btnStats)
+		{
+			nettoyer();
+		}
+		else if (source == btnRetour)
+		{
+			menu();
+		}
+		/*	
+			try {
+				co.close();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
-		}else if(source == btnRecupNbEtuSStage){
-			nettoyer();
-		}else if(source == btnRecupNbEtuSStageDate){
-			recupererEtudiantSStage();
-		}else if(source == btnNbStageZoneGeo){
-			nettoyer();
-		}else if(source == btnNbStageZoneGeoChoix){
-			choixZoneGeo();
-		}else if(source == btnNbStagiaireParEntrepriseAnnee){
-			nettoyer();
-		}else if(source == btnNbStagiaireParEntrepriseAnneeMoy){
-			nettoyer();
-		}else if(source == btnEntrepriseAStageAnnee){
-			nettoyer();
-		}else if(source == btnStats){
-			nettoyer();
-		}else if(source == btnRetour){
-			menu();
-		}
-	/*	
-		try {
-			co.close();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
+			}*/
 	}
-	public static void main(String[] args) throws InterruptedException, IOException {
+	public static void main(String[] args) throws InterruptedException, IOException
+	{
 		Interface i = new Interface("Projet Base de Données Avancées");
 	}
 }
