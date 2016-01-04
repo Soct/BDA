@@ -153,6 +153,7 @@ public class Interface extends JFrame implements ActionListener
 		// On précise les paramètres
 		cst.setString(2, "2016");
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
+		  cst.execute();
 		lblResult = new JLabel(Integer.toString(cst.getInt(1)));
 		this.panel.add(lblResult);
 		this.panel.add(btnRetour);
