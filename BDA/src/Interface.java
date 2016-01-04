@@ -17,30 +17,22 @@ public class Interface  extends JFrame implements ActionListener {
 	
 	JPanel panel = new JPanel();
 	JLabel label = new JLabel();
-	JLabel labelCoureur = new JLabel();
+	
 	JButton btnRecupNbEtuAStage = new JButton("Nombre d'étudiant(s) avec stage ");
 	JButton btnRecupNbEtuSStage = new JButton("Nombre d'étudiant(s) sans stage ");
 	JButton btnRecupNbEtuSStageDate = new JButton("Nombre d'étudiant(s) sans stage à une date");
-	JButton btnNbStagiaireParEntrepriseAnnee = new JButton("Nombre de stagiaire(s) pris par chaque entreprise durant les N dernières années");
-	JButton btnNbStagiaireParEntrepriseAnneeMoy = new JButton("Moyenne du nombre de stagiaire(s) pris par chaque entreprise durant les N dernières années");
-	JTextField txtRecherche = new JTextField();
+	JButton btnNbStagiaireParEntrepriseAnnee = new JButton("Nombre de stagiaire(s) pris par "
+			+ "chaque entreprise durant les N dernières années");
+	JButton btnNbStagiaireParEntrepriseAnneeMoy = new JButton("Moyenne du nombre de stagiaire"
+			+ "(s) pris par chaque entreprise durant les N dernières années");
 	JButton btnNbStageZoneGeoChoix = new JButton ("Nombre de stages par zone choisi");
 	JButton btnNbStageZoneGeo = new JButton ("Nombre de stages pour toute les zones");
-	JButton btnEntrepriseAStageAnnee = new JButton ("Les entreprises et leur contact ayant eu un stage dans les n dernières années");
+	JButton btnEntrepriseAStageAnnee = new JButton ("Les entreprises et leur contact ayant eu "
+			+ "un stage dans les n dernières années");
 	JButton btnStats = new JButton ("Statistiques");
 	JButton btnRetour = new JButton ("Retour");
-	JButton btnConsulterInscrit = new JButton ("Consulter inscrit");
-	JButton btnSinscire = new JButton ("S'inscrire");
-	JButton btnPrecisionParcours = new JButton ("Afficher precision Parcours");
-	JButton btnInfoCourse = new JButton ("Afficher info course");
-	JButton btnValider = new JButton("Valider");
-	JLabel prenom = new JLabel("prenom");
-	JLabel sexe = new JLabel("sexe");
-	JLabel nom = new JLabel("nom");
-	JTextField txtNom= new JTextField();
-	JLabel annee = new JLabel("anne de naissance");
-	JTextField txtAnnee= new JTextField();
-	
+
+
 public Interface (String titre){
 		
 		super(titre);
@@ -89,13 +81,35 @@ public Interface (String titre){
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		
+		//Ouvrir connexion base de données
+		
 		 Object source = e.getSource();
 		 
 		if (source == btnRecupNbEtuAStage){
 			 nettoyer();
-			 
-		 }
+		}else if(source == btnRecupNbEtuSStage){
+			nettoyer();
+		}else if(source == btnRecupNbEtuSStageDate){
+			nettoyer();
+		}else if(source == btnNbStageZoneGeo){
+			nettoyer();
+		}else if(source == btnNbStageZoneGeoChoix){
+			nettoyer();
+		}else if(source == btnNbStagiaireParEntrepriseAnnee){
+			nettoyer();
+		}else if(source == btnNbStagiaireParEntrepriseAnneeMoy){
+			nettoyer();
+		}else if(source == btnEntrepriseAStageAnnee){
+			nettoyer();
+		}else if(source == btnStats){
+			nettoyer();
+		}else if(source == btnRetour){
+			nettoyer();
+			menu();
+		}
+		
+		//Fermer connexion bdd
 		
 	}
 
