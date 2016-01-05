@@ -66,24 +66,27 @@ public class Execution
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
 		cst.execute();
 		System.out.println(cst.getInt(1));
-		gui.lblResult = new JLabel(Integer.toString(cst.getInt(1)));
+		gui.lblResult = new JLabel("Resultat : " + Integer.toString(cst.getInt(1)), JLabel.CENTER);
+
+		gui.btnRetour.addActionListener(gui);
 		gui.panel.add(gui.lblResult);
 		gui.panel.add(gui.btnRetour);
 	}
 	// ***************************************
 	// **** QUESTION 2 ***********************
 	// ***************************************
-	public void RecupEtuSansStage(Interface gui) throws SQLException
+	public static void RecupEtuSansStage(Interface gui) throws SQLException
 	{
 		gui.nettoyer();
-		gui.setTitle("Nombre d'étudiant(s) avec stage");
+		gui.setTitle("Nombre d'étudiant(s) sans stage");
 		gui.setSize(300, 300);
 		gui.panel.setLayout(new GridLayout(2, 2));
 		// On appelle la fonction stockée
 		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage}");
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
 		cst.execute();
-		gui.lblResult = new JLabel(Integer.toString(cst.getInt(1)));
+		gui.lblResult = new JLabel("Resultat : " + Integer.toString(cst.getInt(1)), JLabel.CENTER);
+		gui.btnRetour.addActionListener(gui);
 		gui.panel.add(gui.lblResult);
 		gui.panel.add(gui.btnRetour);
 	}
