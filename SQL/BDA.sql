@@ -127,47 +127,45 @@ BDA_adresse('rue de bonjour', 'Marseille', '12000'));
 -- FONCTIONS PL/SQL
 -- ############################################################
 -- QUESTION 1
-CREATE OR REPLACE FUNCTION nbEtudiantsAvecStage 
-RETURN INTEGER IS nbStageCetteAnnee INTEGER;
+CREATE OR REPLACE FUNCTION nbEtudiantsAvecStage  --creation de la fonction nbEtudiantsAvecStage
+RETURN INTEGER IS nbStageCetteAnnee INTEGER; --retourne un entier de nom nbStageCetteAnnee
   BEGIN
-    SELECT COUNT(*) INTO nbStageCetteAnnee
-    FROM BDA_ETUDIANT E
-    WHERE TO_CHAR(E.DATEOBTENTIONSTAGE, 'YYYY')=TO_CHAR(sysdate, 'YYYY');
-    RETURN nbStageCetteAnnee;
+    SELECT COUNT(*) INTO nbStageCetteAnnee --compte le nombre d'étudiant ayant un stage et le met dans la variable nbStageCetteAnnee
+    FROM BDA_ETUDIANT E --on utilise la table etudiant
+    WHERE TO_CHAR(E.DATEOBTENTIONSTAGE, 'YYYY')=TO_CHAR(sysdate, 'YYYY'); --la date d'obtention du stage est égal a la date de l'année
+    RETURN nbStageCetteAnnee; --retourne le nombre d'étudiant avec un stage cette année
   END;
 -- QUESTION 2
-CREATE OR REPLACE FUNCTION nbEtudiantsSansStage 
-RETURN INTEGER IS nbNonStageCetteAnnee INTEGER;
+CREATE OR REPLACE FUNCTION nbEtudiantsSansStage  --creation de la fonction nbEtudiantsSansStage
+RETURN INTEGER IS nbNonStageCetteAnnee INTEGER;--retourne un entier de nom nbNonStageCetteAnnee
   BEGIN
-    SELECT COUNT(*) INTO nbNonStageCetteAnnee
-    FROM BDA_ETUDIANT E
-    WHERE E.DATEOBTENTIONSTAGE IS NULL
-    AND TO_CHAR(E.PROMO, 'YYYY')=TO_CHAR(sysdate, 'YYYY');
-    RETURN nbNonStageCetteAnnee;
+    SELECT COUNT(*) INTO nbNonStageCetteAnnee --compte le nombre d'étudiant n'ayant pas un stage et le met dans la variable nbStageCetteAnnee
+    FROM BDA_ETUDIANT E --on utilise la table etudiant
+    WHERE E.DATEOBTENTIONSTAGE IS NULL --la date d'obtention du stage doit etre null
+    AND TO_CHAR(E.PROMO, 'YYYY')=TO_CHAR(sysdate, 'YYYY'); --l'année de la promo est égal à la date de l'année
+    RETURN nbNonStageCetteAnnee; --retourne le nombre d'étudiant sans stage cette année
   END;
 -- QUESTION 3
-CREATE OR REPLACE FUNCTION nbEtudiantsSansStageAvecDate(anneeStage IN DATE)
-RETURN INTEGER IS nbStageCetteAnnee INTEGER;
+CREATE OR REPLACE FUNCTION nbEtudiantsSansStageAvecDate(anneeStage IN DATE) --creation de la fonction nbEtudiantsSansStageAvecDate avec comme parametre une date que l'utilisateur saissira
+RETURN INTEGER IS nbStageCetteAnnee INTEGER; --retourne un entier de nom nbStageCetteAnnee
   BEGIN
-    SELECT COUNT(*) INTO nbStageCetteAnnee
-    FROM BDA_STAGE S, BDA_ETUDIANT E
-    WHERE S.ETUDIANT=E.ID_ETUDIANT
-    AND E.DATEOBTENTIONSTAGE < anneeStage
-    AND TO_CHAR(E.PROMO, 'YYYY')=TO_CHAR(anneeStage, 'YYYY');
-    RETURN nbStageCetteAnnee;
+    SELECT COUNT(*) INTO nbStageCetteAnnee --compte le nombre d'étudiant ayant un stage et le met dans la variable nbStage cette année
+    FROM BDA_STAGE S, BDA_ETUDIANT E --on utilise la table etudiant et stage
+    WHERE S.ETUDIANT=E.ID_ETUDIANT --l'ID de l'étudiant de la table etudiant est égal à l'étudiant du stage
+    AND E.DATEOBTENTIONSTAGE < anneeStage -- limite le nombre de stage comptabilisé à la date donnée par l'utilisateur
+    AND TO_CHAR(E.PROMO, 'YYYY')=TO_CHAR(anneeStage, 'YYYY'); --l'année de la promo est égal à la date à anneeStage
+    RETURN nbStageCetteAnnee; --retourne le nombre d'étudiant avec un stage cette année
   END;
 -- QUESTION 4
-CREATE OR REPLACE FUNCTION nbStageParEntrepriseNAnnees(nbAnnee IN INTEGER)
-RETURN VARCHAR2 IS table_return BDA_STAGE.BDA_STAGE%TYPE;
+CREATE OR REPLACE FUNCTION nbStageParEntrepriseNAnnees(nbAnnee IN INTEGER) --creation de la fonction nbEtudiantsParEntrepriseNAnnees avec comme parametre les n dernieres année pris en compte l'utilisateur saissira
+RETURN VARCHAR2 IS table_return BDA_STAGE.BDA_STAGE%TYPE; -- retourne un string de nom table_return
   BEGIN
-    SELECT * INTO table_return
-    FROM BDA_ENTREPRISE ET, BDA_STAGE S
-    WHERE ET.ID_ENTREPRISE=S.ENTREPRISE
-    AND TO_CHAR(sysdate, 'YYYY')-TO_CHAR(S.DATEDEBUT, 'YYYY')<nbAnnee;
+    SELECT * INTO table_return 
+    FROM BDA_ENTREPRISE ET, BDA_STAGE S --on utilise la table entreprise et stage
+    WHERE ET.ID_ENTREPRISE=S.ENTREPRISE --l'id de l'entreprise est égal à celui de l'entreprise du stage
+    AND TO_CHAR(sysdate, 'YYYY')-TO_CHAR(S.DATEDEBUT, 'YYYY')<nbAnnee;  
     RETURN table_return;
   END;
-
-
 
   
 
