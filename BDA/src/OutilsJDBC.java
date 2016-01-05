@@ -27,7 +27,7 @@ public class OutilsJDBC
 		catch (SQLException e)
 		{
 			System.out.println("impossible de se connecter");
-			System.exit(1);
+			return null;
 		}
 		return co;
 	}

@@ -16,66 +16,45 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.sun.nio.file.ExtendedCopyOption;
+
 @SuppressWarnings("serial")
 public class Interface extends JFrame implements ActionListener
 {
-	public static String id = "";
-	public static String mdp = "";
-
 	public JPanel panel = new JPanel();
 	public JLabel label = new JLabel("");
 
-	public JButton btnRecupNbEtuAStage = new JButton("Nombre d'étudiant(s) avec stage ");
-	public JButton btnRecupNbEtuSStage = new JButton("Nombre d'étudiant(s) sans stage ");
-	public JButton btnRecupNbEtuSStageDate = new JButton("Nombre d'étudiant(s) sans stage à une date");
-	public JButton btnNbStagiaireParEntrepriseAnnee = new JButton(
+	public static JButton btnRecupNbEtuAStage = new JButton("Nombre d'étudiant(s) avec stage ");
+	public static JButton btnRecupNbEtuSStage = new JButton("Nombre d'étudiant(s) sans stage ");
+	public static JButton btnRecupNbEtuSStageDate = new JButton("Nombre d'étudiant(s) sans stage à une date");
+	public static JButton btnNbStagiaireParEntrepriseAnnee = new JButton(
 	                    "Nombre de stagiaire(s) pris par " + "chaque entreprise durant les N dernières années");
-	public JButton btnNbStagiaireParEntrepriseAnneeMoy = new JButton("Moyenne du nombre de stagiaire"
+	public static JButton btnNbStagiaireParEntrepriseAnneeMoy = new JButton("Moyenne du nombre de stagiaire"
 	                    + "(s) pris par chaque entreprise durant les N dernières années");
-	public JButton btnNbStageZoneGeoChoix = new JButton("Nombre de stages par zone choisi");
-	public JButton btnNbStageZoneGeo = new JButton("Nombre de stages pour toute les zones");
-	public JButton btnEntrepriseAStageAnnee = new JButton(
+	public static JButton btnNbStageZoneGeoChoix = new JButton("Nombre de stages par zone choisi");
+	public static JButton btnNbStageZoneGeo = new JButton("Nombre de stages pour toute les zones");
+	public static JButton btnEntrepriseAStageAnnee = new JButton(
 	                    "Les entreprises et leur contact ayant eu " + "un stage dans les n dernières années");
-	public JButton btnStats = new JButton("Statistiques");
-	public JButton btnRetour = new JButton("Retour");
+	public static JButton btnStats = new JButton("Statistiques");
+	public static JButton btnRetour = new JButton("Retour");
 
-	public JButton btnValider = new JButton("Valider");
+	public static JButton btnValider = new JButton("Valider");
 
-	public JLabel lblDate = new JLabel("Date :");
-	public JTextField txtDate = new JTextField();
+	public static JLabel lblDate = new JLabel("Date :");
+	public static JTextField txtDate = new JTextField();
 
-	public JLabel lblResult;
+	public static JLabel lblResult;
 
 	public Interface(String titre)
 	{
 		super(titre);
-		connexionID();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(600, 600);
 		this.setVisible(true);
 		panel.setLayout(new GridLayout(9, 2));
 		menu();
 	}
-	public void connexionID()
-	{
-		String[] options = {"OK"};
-		JPanel panel = new JPanel();
-		JPanel panel2 = new JPanel();
-		JLabel lbl = new JLabel("Entrez votre identifiant : ");
-		JLabel lbl2 = new JLabel("Entrez votre mot de passe : ");
-		JTextField txt = new JTextField(10);
-		JTextField txt2 = new JTextField(10);
-		panel.add(lbl);
-		panel.add(txt);
-		panel2.add(lbl2);
-		panel2.add(txt2);
-		int selectedOption = JOptionPane.showOptionDialog(null, panel, "Connexion à la BDD",
-		                    JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-		int selectedOption2 = JOptionPane.showOptionDialog(null, panel2, "Connexion à la BDD",
-		                    JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-		id = txt.getText();
-		mdp = txt2.getText();
-	}
+	
 
 	public void menu()
 	{
@@ -110,36 +89,9 @@ public class Interface extends JFrame implements ActionListener
 		panel.revalidate();
 	}
 
-	public void choixZoneGeo()
-	{
-		nettoyer();
-		this.setTitle("Nombre de stages par zone géo choisi");
-		this.setSize(600, 300);
-		panel.setLayout(new GridLayout(5, 2));
-		this.panel.add(lblDate);
-		this.panel.add(txtDate);
-		btnValider.addActionListener(this);
-		this.panel.add(btnValider);
-		this.panel.add(label);
-		btnRetour.addActionListener(this);
-		this.panel.add(btnRetour);
-	}
 
-	public void RecupEtuAvecStage(Connection co) throws SQLException
-	{
-		nettoyer();
-		this.setTitle("Nombre d'étudiant(s) avec stage");
-		this.setSize(300, 300);
-		panel.setLayout(new GridLayout(2, 2));
-		// On appelle la fonction stockée
-		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsAvecStage()}");
-		cst.registerOutParameter(1, java.sql.Types.INTEGER);
-		cst.execute();
-		System.out.println(cst.getInt(1));
-		lblResult = new JLabel(Integer.toString(cst.getInt(1)));
-		this.panel.add(lblResult);
-		this.panel.add(btnRetour);
-	}
+
+
 	public void RecupEtuSansStage(Connection co) throws SQLException
 	{
 		nettoyer();
@@ -166,16 +118,12 @@ public class Interface extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// On se connecte à la base de données
-		String url = "jdbc:oracle:thin:" + id + "/" + mdp
-		                    + "@oracle.iut-orsay.fr:1521:etudom";
-		Connection co = OutilsJDBC.connexion(url);
 		Object source = e.getSource();
 		if (source == btnRecupNbEtuAStage)
 		{
 			try
 			{
-				RecupEtuAvecStage(co);
+				Execution.RecupEtuAvecStage(this);
 			}
 			catch (SQLException e1)
 			{
@@ -183,7 +131,7 @@ public class Interface extends JFrame implements ActionListener
 			}
 		}else if(source == btnRecupNbEtuSStage){
 			try {
-				RecupEtuSansStage(co);
+				Execution.RecupEtuSansStage(this);
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -204,7 +152,7 @@ public class Interface extends JFrame implements ActionListener
 		}
 		else if (source == btnNbStageZoneGeoChoix)
 		{
-			choixZoneGeo();
+			Execution.choixZoneGeo(this);
 		}
 		else if (source == btnNbStagiaireParEntrepriseAnnee)
 		{
