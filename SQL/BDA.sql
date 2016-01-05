@@ -54,6 +54,18 @@ INSERT INTO BDA_ETUDIANT VALUES
 (9, 'Clovis', 'France', 1, TO_DATE('08/01/1206', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
 (10, 'Céline', 'Dion', 1, TO_DATE('15/04/1962', 'dd/mm/yyyy'));
+INSERT INTO BDA_ETUDIANT VALUES
+(11, 'Michel', 'Galabru', 1, TO_DATE('05/01/2016', 'dd/mm/yyyy'));
+INSERT INTO BDA_ETUDIANT VALUES
+(12, 'Marcel', 'Pagnol', 1, TO_DATE('08/02/2016', 'dd/mm/yyyy'));
+INSERT INTO BDA_ETUDIANT VALUES
+(13, 'Francis', 'Cabrel', 0, NULL);
+INSERT INTO BDA_ETUDIANT VALUES
+(14, 'Léonardo', 'Di Caprio', 0, NULL);
+INSERT INTO BDA_ETUDIANT VALUES
+(15, 'Dark', 'Vador', 1, TO_DATE('15/06/5986', 'dd/mm/yyyy'));
+INSERT INTO BDA_ETUDIANT VALUES
+(16, 'Napoléon', 'Bonaparte', 1, TO_DATE('01/04/2016', 'dd/mm/yyyy'));
 ---------------------------------------------------------------
 INSERT INTO BDA_ENTREPRISE VALUES
 (1, 'Air France', BDA_adresse('rue des papyrus', 'Paris', '75000'));
