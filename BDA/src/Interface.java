@@ -54,7 +54,6 @@ public class Interface extends JFrame implements ActionListener
 		panel.setLayout(new GridLayout(9, 2));
 		menu();
 	}
-	
 
 	public void menu()
 	{
@@ -88,24 +87,6 @@ public class Interface extends JFrame implements ActionListener
 		panel.repaint();
 		panel.revalidate();
 	}
-
-
-
-
-	public void RecupEtuSansStage(Connection co) throws SQLException
-	{
-		nettoyer();
-		this.setTitle("Nombre d'étudiant(s) avec stage");
-		this.setSize(300, 300);
-		panel.setLayout(new GridLayout(2, 2));
-		// On appelle la fonction stockée
-		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage()}");
-		cst.registerOutParameter(1, java.sql.Types.INTEGER);
-		cst.execute();
-		lblResult = new JLabel(Integer.toString(cst.getInt(1)));
-		this.panel.add(lblResult);
-		this.panel.add(btnRetour);
-	}
 	public void recupererEtudiantSStage()
 	{
 		nettoyer();
@@ -129,14 +110,12 @@ public class Interface extends JFrame implements ActionListener
 			{
 				e1.printStackTrace();
 			}
-		}else if(source == btnRecupNbEtuSStage){
-			try {
-				Execution.RecupEtuSansStage(this);
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}else if(source == btnRecupNbEtuSStageDate){
+		}
+		else if (source == btnRecupNbEtuSStage)
+		{
+		}
+		else if (source == btnRecupNbEtuSStageDate)
+		{
 		}
 		else if (source == btnRecupNbEtuSStage)
 		{
