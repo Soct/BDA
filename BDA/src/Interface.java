@@ -1,25 +1,26 @@
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
+=======
+>>>>>>> origin/master
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 @SuppressWarnings("serial")
 public class Interface extends JFrame implements ActionListener
 {
@@ -57,8 +58,6 @@ public class Interface extends JFrame implements ActionListener
 		panel.setLayout(new GridLayout(9, 2));
 		menu();
 	}
-	
-
 	public void menu()
 	{
 		this.setTitle("Projet Base de Données Avancées");
@@ -91,24 +90,6 @@ public class Interface extends JFrame implements ActionListener
 		panel.repaint();
 		panel.revalidate();
 	}
-
-
-
-
-	public void RecupEtuSansStage(Connection co) throws SQLException
-	{
-		nettoyer();
-		this.setTitle("Nombre d'étudiant(s) avec stage");
-		this.setSize(300, 300);
-		panel.setLayout(new GridLayout(2, 2));
-		// On appelle la fonction stockée
-		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage()}");
-		cst.registerOutParameter(1, java.sql.Types.INTEGER);
-		cst.execute();
-		lblResult = new JLabel(Integer.toString(cst.getInt(1)));
-		this.panel.add(lblResult);
-		this.panel.add(btnRetour);
-	}
 	public void recupererEtudiantSStage()
 	{
 		nettoyer();
@@ -124,6 +105,7 @@ public class Interface extends JFrame implements ActionListener
 		Object source = e.getSource();
 		if (source == btnRecupNbEtuAStage)
 		{
+<<<<<<< HEAD
 			try
 			{
 				Execution.RecupEtuAvecStage(this);
@@ -141,6 +123,16 @@ public class Interface extends JFrame implements ActionListener
 			}
 		}else if(source == btnRecupNbEtuSStageDate){
 			Execution.recupererEtudiantSStage(this);
+=======
+			Execution.RecupEtuAvecStage(this);
+		}
+		else if (source == btnRecupNbEtuSStage)
+		{
+			Execution.RecupEtuSansStage(this);
+		}
+		else if (source == btnRecupNbEtuSStageDate)
+		{
+>>>>>>> origin/master
 		}
 		else if (source == btnRecupNbEtuSStage)
 		{
@@ -148,7 +140,6 @@ public class Interface extends JFrame implements ActionListener
 		}
 		else if (source == btnRecupNbEtuSStageDate)
 		{
-			recupererEtudiantSStage();
 		}
 		else if (source == btnNbStageZoneGeo)
 		{
@@ -198,6 +189,7 @@ public class Interface extends JFrame implements ActionListener
 			}
 			
 		}
+<<<<<<< HEAD
 		/*	
 			try {
 				co.close();
@@ -207,4 +199,7 @@ public class Interface extends JFrame implements ActionListener
 			}*/
 	}
 	
+=======
+	}
+>>>>>>> origin/master
 }

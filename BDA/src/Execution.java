@@ -56,13 +56,14 @@ public class Execution
 	// ***************************************
 	// **** QUESTION 1 ***********************
 	// ***************************************
-	public static void RecupEtuAvecStage(Interface gui) throws SQLException
+	public static void RecupEtuAvecStage(Interface gui)
 	{
 		gui.nettoyer();
 		gui.setTitle("Nombre d'étudiant(s) avec stage");
 		gui.setSize(300, 300);
 		gui.panel.setLayout(new GridLayout(2, 2));
 		// On appelle la fonction stockée
+<<<<<<< HEAD
 		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsAvecStage}");
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
 		cst.execute();
@@ -70,25 +71,62 @@ public class Execution
 		gui.lblResult = new JLabel("Resultat : " + Integer.toString(cst.getInt(1)), JLabel.CENTER);
 
 		gui.btnRetour.addActionListener(gui);
+=======
+		CallableStatement cst;
+		try
+		{
+			cst = co.prepareCall("{? = call nbEtudiantsAvecStage}");
+			cst.registerOutParameter(1, java.sql.Types.INTEGER);
+			cst.execute();
+			gui.lblResult = new JLabel(Integer.toString(cst.getInt(1)));
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+>>>>>>> origin/master
 		gui.panel.add(gui.lblResult);
+		gui.btnRetour.addActionListener(gui);
 		gui.panel.add(gui.btnRetour);
 	}
 	// ***************************************
 	// **** QUESTION 2 ***********************
 	// ***************************************
+<<<<<<< HEAD
 	public static void RecupEtuSansStage(Interface gui) throws SQLException
+=======
+	public static void RecupEtuSansStage(Interface gui)
+>>>>>>> origin/master
 	{
 		gui.nettoyer();
 		gui.setTitle("Nombre d'étudiant(s) sans stage");
 		gui.setSize(300, 300);
 		gui.panel.setLayout(new GridLayout(2, 2));
 		// On appelle la fonction stockée
+<<<<<<< HEAD
 		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage}");
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
 		cst.execute();
 		gui.lblResult = new JLabel("Resultat : " + Integer.toString(cst.getInt(1)), JLabel.CENTER);
 		gui.btnRetour.addActionListener(gui);
+=======
+		CallableStatement cst;
+		try
+		{
+			cst = co.prepareCall("{? = call nbEtudiantsSansStage}");
+			cst.registerOutParameter(1, java.sql.Types.INTEGER);
+			cst.execute();
+			gui.lblResult = new JLabel(Integer.toString(cst.getInt(1)));
+		}
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+>>>>>>> origin/master
 		gui.panel.add(gui.lblResult);
+		gui.btnRetour.addActionListener(gui);
 		gui.panel.add(gui.btnRetour);
 	}
 	// ***************************************
