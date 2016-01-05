@@ -66,6 +66,8 @@ INSERT INTO BDA_ETUDIANT VALUES
 (15, 'Dark', 'Vador', TO_DATE('5986', 'yyyy'), TO_DATE('15/06/5986', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
 (16, 'Napoléon', 'Bonaparte', TO_DATE('2016', 'yyyy'), TO_DATE('01/04/2016', 'dd/mm/yyyy'));
+INSERT INTO BDA_ETUDIANT VALUES
+(17, 'Gilbert', 'Montagné', TO_DATE('2016', 'yyyy'), TO_DATE('01/02/2016', 'dd/mm/yyyy'));
 ---------------------------------------------------------------
 INSERT INTO BDA_ENTREPRISE VALUES
 (1, 'Air France', BDA_adresse('rue des papyrus', 'Paris', '75000'));
@@ -118,6 +120,9 @@ BDA_adresse('rue des étoiles noires', 'Galaxie Nord', '99000'));
 INSERT INTO BDA_STAGE VALUES
 (10, 16, 8, TO_DATE('15/04/2016', 'dd/mm/yyyy'), TO_DATE('15/06/2016', 'dd/mm/yyyy'), 
 BDA_adresse('rue de trafalgar', 'Marseille', '13000'));
+INSERT INTO BDA_STAGE VALUES
+(11, 17, 2, TO_DATE('01/03/2016', 'dd/mm/yyyy'), TO_DATE('15/05/2016', 'dd/mm/yyyy'), 
+BDA_adresse('rue de bonjour', 'Marseille', '12000'));
 -- ############################################################
 -- FONCTIONS PL/SQL
 -- ############################################################
@@ -151,6 +156,18 @@ RETURN INTEGER IS nbStageCetteAnnee INTEGER;
     AND TO_CHAR(E.PROMO, 'YYYY')=TO_CHAR(anneeStage, 'YYYY');
     RETURN nbStageCetteAnnee;
   END;
+-- QUESTION 4
+CREATE OR REPLACE FUNCTION nbStageParEntrepriseNAnnees(nbAnnee IN INTEGER)
+RETURN VARCHAR2 IS table_return BDA_STAGE.BDA_STAGE%TYPE;
+  BEGIN
+    SELECT * INTO table_return
+    FROM BDA_ENTREPRISE ET, BDA_STAGE S
+    WHERE ET.ID_ENTREPRISE=S.ENTREPRISE
+    AND TO_CHAR(sysdate, 'YYYY')-TO_CHAR(S.DATEDEBUT, 'YYYY')<nbAnnee;
+    RETURN table_return;
+  END;
+
+
 
   
 
