@@ -83,9 +83,9 @@ public class Execution
 		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage()}");
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
 		cst.execute();
-		lblResult = new JLabel(Integer.toString(cst.getInt(1)));
-		this.panel.add(lblResult);
-		this.panel.add(btnRetour);
+		gui.lblResult = new JLabel(Integer.toString(cst.getInt(1)));
+		gui.panel.add(gui.lblResult);
+		gui.panel.add(gui.btnRetour);
 	}
 	// ***************************************
 	// **** QUESTION X ***********************
