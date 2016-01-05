@@ -62,7 +62,7 @@ public class Execution
 		gui.setSize(300, 300);
 		gui.panel.setLayout(new GridLayout(2, 2));
 		// On appelle la fonction stockée
-		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsAvecStage()}");
+		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsAvecStage}");
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
 		cst.execute();
 		System.out.println(cst.getInt(1));
@@ -80,7 +80,7 @@ public class Execution
 		gui.setSize(300, 300);
 		gui.panel.setLayout(new GridLayout(2, 2));
 		// On appelle la fonction stockée
-		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage()}");
+		CallableStatement cst = co.prepareCall("{? = call nbEtudiantsSansStage}");
 		cst.registerOutParameter(1, java.sql.Types.INTEGER);
 		cst.execute();
 		gui.lblResult = new JLabel(Integer.toString(cst.getInt(1)));
