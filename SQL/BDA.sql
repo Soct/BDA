@@ -16,7 +16,7 @@ CREATE TABLE BDA_etudiant(
   id_etudiant INTEGER NOT NULL PRIMARY KEY, 
   prenom VARCHAR2(50) NOT NULL, 
   nom VARCHAR2(50) NOT NULL, 
-  stageGot INTEGER NOT NULL, 
+  promo DATE NOT NULL,
   dateObtentionStage DATE);
 -- CREATION DE L'OBJET ENTREPRISE
 CREATE TABLE BDA_entreprise(
@@ -35,37 +35,37 @@ CREATE TABLE BDA_stage(
 -- INSERTION DES VALUES
 -- ############################################################
 INSERT INTO BDA_ETUDIANT VALUES
-(1, 'Albert', 'Einstein', 1, TO_DATE('08/01/1965', 'dd/mm/yyyy'));
+(1, 'Albert', 'Einstein', TO_DATE('1965', 'yyyy'), TO_DATE('08/01/1965', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
-(2, 'Wilhelm', 'Röntgen', 0, NULL);
+(2, 'Wilhelm', 'Röntgen', TO_DATE('2016', 'yyyy'), NULL);
 INSERT INTO BDA_ETUDIANT VALUES
-(3, 'Hendrik', 'Lorentz', 1, TO_DATE('04/01/2010', 'dd/mm/yyyy'));
+(3, 'Hendrik', 'Lorentz', TO_DATE('2010', 'yyyy'), TO_DATE('04/01/2010', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
-(4, 'Gabriel', 'Lippmann', 1, TO_DATE('10/03/2013', 'dd/mm/yyyy'));
+(4, 'Gabriel', 'Lippmann', TO_DATE('2013', 'yyyy'), TO_DATE('10/03/2013', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
-(5, 'François', 'Hollande', 0, NULL);
+(5, 'François', 'Hollande',TO_DATE('2015', 'yyyy'), NULL);
 INSERT INTO BDA_ETUDIANT VALUES
-(6, 'Marc', 'Zukerberg', 1, TO_DATE('12/12/2013', 'dd/mm/yyyy'));
+(6, 'Marc', 'Zukerberg', TO_DATE('2013', 'yyyy'), TO_DATE('12/12/2013', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
-(7, 'Alain', 'Delon', 0, NULL);
+(7, 'Alain', 'Delon', TO_DATE('2016', 'yyyy'), NULL);
 INSERT INTO BDA_ETUDIANT VALUES
-(8, 'Alain', 'Bernard', 0, NULL);
+(8, 'Alain', 'Bernard',  TO_DATE('2016', 'yyyy'), NULL);
 INSERT INTO BDA_ETUDIANT VALUES
-(9, 'Clovis', 'France', 1, TO_DATE('08/01/1206', 'dd/mm/yyyy'));
+(9, 'Clovis', 'France', TO_DATE('1206', 'yyyy'), TO_DATE('08/01/1206', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
-(10, 'Céline', 'Dion', 1, TO_DATE('15/04/1962', 'dd/mm/yyyy'));
+(10, 'Céline', 'Dion', TO_DATE('1962', 'yyyy'), TO_DATE('15/04/1962', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
-(11, 'Michel', 'Galabru', 1, TO_DATE('05/01/2016', 'dd/mm/yyyy'));
+(11, 'Michel', 'Galabru', TO_DATE('2016', 'yyyy'), TO_DATE('05/01/2016', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
-(12, 'Marcel', 'Pagnol', 1, TO_DATE('08/02/2016', 'dd/mm/yyyy'));
+(12, 'Marcel', 'Pagnol', TO_DATE('2016', 'yyyy'), TO_DATE('08/02/2016', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
-(13, 'Francis', 'Cabrel', 0, NULL);
+(13, 'Francis', 'Cabrel', TO_DATE('2016', 'yyyy'), NULL);
 INSERT INTO BDA_ETUDIANT VALUES
-(14, 'Léonardo', 'Di Caprio', 0, NULL);
+(14, 'Léonardo', 'Di Caprio', TO_DATE('2016', 'yyyy'), NULL);
 INSERT INTO BDA_ETUDIANT VALUES
-(15, 'Dark', 'Vador', 1, TO_DATE('15/06/5986', 'dd/mm/yyyy'));
+(15, 'Dark', 'Vador', TO_DATE('5986', 'yyyy'), TO_DATE('15/06/5986', 'dd/mm/yyyy'));
 INSERT INTO BDA_ETUDIANT VALUES
-(16, 'Napoléon', 'Bonaparte', 1, TO_DATE('01/04/2016', 'dd/mm/yyyy'));
+(16, 'Napoléon', 'Bonaparte', TO_DATE('2016', 'yyyy'), TO_DATE('01/04/2016', 'dd/mm/yyyy'));
 ---------------------------------------------------------------
 INSERT INTO BDA_ENTREPRISE VALUES
 (1, 'Air France', BDA_adresse('rue des papyrus', 'Paris', '75000'));
@@ -100,6 +100,24 @@ BDA_adresse('rue des germains', 'Lille', '59632'));
 INSERT INTO BDA_STAGE VALUES
 (4, 6, 2, TO_DATE('12/12/2013', 'dd/mm/yyyy'), TO_DATE('30/06/2015', 'dd/mm/yyyy'), 
 BDA_adresse('rue des fromagers', 'Lorient', '35120'));
+INSERT INTO BDA_STAGE VALUES
+(5, 9, 7, TO_DATE('08/01/1206', 'dd/mm/yyyy'), TO_DATE('08/07/1206', 'dd/mm/yyyy'), 
+BDA_adresse('rue du moyen-age', 'Lutèce', '78503'));
+INSERT INTO BDA_STAGE VALUES
+(6, 10, 1, TO_DATE('19/04/1962', 'dd/mm/yyyy'), TO_DATE('14/06/1962', 'dd/mm/yyyy'), 
+BDA_adresse('rue de on connait pas', 'Pékin', '23520'));
+INSERT INTO BDA_STAGE VALUES
+(7, 11, 3, TO_DATE('15/08/2016', 'dd/mm/yyyy'), TO_DATE('10/10/2016', 'dd/mm/yyyy'), 
+BDA_adresse('rue des pommes de terres', 'Ploumoguer', '23200'));
+INSERT INTO BDA_STAGE VALUES
+(8, 12, 7, TO_DATE('15/02/2016', 'dd/mm/yyyy'), TO_DATE('08/06/2016', 'dd/mm/yyyy'), 
+BDA_adresse('rue des fénéants', 'Brest', '29200'));
+INSERT INTO BDA_STAGE VALUES
+(9, 15, 10, TO_DATE('30/06/5986', 'dd/mm/yyyy'), TO_DATE('30/06/6000', 'dd/mm/yyyy'), 
+BDA_adresse('rue des étoiles noires', 'Galaxie Nord', '99000'));
+INSERT INTO BDA_STAGE VALUES
+(10, 16, 8, TO_DATE('15/04/2016', 'dd/mm/yyyy'), TO_DATE('15/06/2016', 'dd/mm/yyyy'), 
+BDA_adresse('rue de trafalgar', 'Marseille', '13000'));
 -- ############################################################
 -- FONCTIONS PL/SQL
 -- ############################################################
@@ -118,37 +136,20 @@ RETURN INTEGER IS nbNonStageCetteAnnee INTEGER;
   BEGIN
     SELECT COUNT(*) INTO nbNonStageCetteAnnee
     FROM BDA_ETUDIANT E
-    WHERE E.DATEOBTENTIONSTAGE=NULL;
+    WHERE E.DATEOBTENTIONSTAGE IS NULL
+    AND TO_CHAR(E.PROMO, 'YYYY')=TO_CHAR(sysdate, 'YYYY');
     RETURN nbNonStageCetteAnnee;
   END;
-
-
-
-
-
-
-
-    
-CREATE OR REPLACE FUNCTION nbEtudiantsSansStage (anneeStage in INTEGER) RETURN INTEGER IS
-  nbStageCetteAnnée INTEGER;
-
+-- QUESTION 3
+CREATE OR REPLACE FUNCTION nbEtudiantsSansStageAvecDate(anneeStage IN DATE)
+RETURN INTEGER IS nbStageCetteAnnee INTEGER;
   BEGIN
-      SELECT COUNT(*) INTO nbStageCetteAnnée
-      FROM BDA_STAGE
-      WHERE TO_CHAR(dateDebut, 'YYYY') = anneeStage
-        AND  dateDebut IS NULL;
-        return nbStageCetteAnnée;
-  END;
-    
-CREATE OR REPLACE FUNCTION nbEtudiantsSansStageAvecDate (anneeStage in INTEGER) RETURN INTEGER IS
-  nbStageCetteAnnée INTEGER;
-
-  BEGIN
-      SELECT COUNT(*) INTO nbStageCetteAnnée
-      FROM BDA_STAGE
-      WHERE TO_CHAR(dateDebut, 'YYYY') = anneeStage;
-
-        return nbStageCetteAnnée;
+    SELECT COUNT(*) INTO nbStageCetteAnnee
+    FROM BDA_STAGE S, BDA_ETUDIANT E
+    WHERE S.ETUDIANT=E.ID_ETUDIANT
+    AND E.DATEOBTENTIONSTAGE < anneeStage
+    AND TO_CHAR(E.PROMO, 'YYYY')=TO_CHAR(anneeStage, 'YYYY');
+    RETURN nbStageCetteAnnee;
   END;
 
   
