@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,7 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.sun.nio.file.ExtendedCopyOption;
 
 @SuppressWarnings("serial")
 public class Interface extends JFrame implements ActionListener
@@ -38,9 +40,10 @@ public class Interface extends JFrame implements ActionListener
 	public static JButton btnStats = new JButton("Statistiques");
 	public static JButton btnRetour = new JButton("Retour");
 
-	public static JButton btnValider = new JButton("Valider");
+	public static JButton btnValiderDate = new JButton("Valider");
+	public static JButton btnValiderZone = new JButton("Valider");
 
-	public static JLabel lblDate = new JLabel("Date :");
+	public static JLabel lblDate = new JLabel("Année :", JLabel.CENTER);
 	public static JTextField txtDate = new JTextField();
 
 	public static JLabel lblResult;
@@ -137,6 +140,7 @@ public class Interface extends JFrame implements ActionListener
 				e1.printStackTrace();
 			}
 		}else if(source == btnRecupNbEtuSStageDate){
+			Execution.recupererEtudiantSStage(this);
 		}
 		else if (source == btnRecupNbEtuSStage)
 		{
@@ -173,6 +177,26 @@ public class Interface extends JFrame implements ActionListener
 		else if (source == btnRetour)
 		{
 			menu();
+		}else if (source == btnValiderDate)
+		{
+			System.out.println(txtDate.getText());
+			String s = txtDate.getText();
+			SimpleDateFormat sdf = new SimpleDateFormat("YYYY");
+			Date d;
+			java.util.Date utilDate = new java.util.Date();
+			try {
+				utilDate = sdf.parse(s);
+			    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			    System.out.println(sqlDate);
+				Execution.recupererEtudiantSStageResul(this, sqlDate);
+			} catch (ParseException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 		}
 		/*	
 			try {
@@ -182,8 +206,5 @@ public class Interface extends JFrame implements ActionListener
 				e1.printStackTrace();
 			}*/
 	}
-	public static void main(String[] args) throws InterruptedException, IOException
-	{
-		Interface i = new Interface("Projet Base de Données Avancées");
-	}
+	
 }
